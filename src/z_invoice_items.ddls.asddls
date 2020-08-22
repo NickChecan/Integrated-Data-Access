@@ -10,11 +10,12 @@ define view Z_INVOICE_ITEMS as select from sepm_sddl_so_invoice_item {
     sepm_sddl_so_invoice_item.currency_code, 
     sepm_sddl_so_invoice_item.gross_amount,
     
-    @EndUserText.quickInfo: 'Paid'
-    case header.payment_status
-        when 'P' then 'X'
-        else ' '
-    end as payment_status,
+    cast(
+        case header.payment_status
+            when 'P' then 'X'
+            else ' '
+        end as zso_invoice_payment_status )
+    as payment_status,
 
     /* Associations */ 
     header 
