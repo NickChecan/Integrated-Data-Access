@@ -1,8 +1,6 @@
 *&---------------------------------------------------------------------*
 *& Report z_invoice_items_euro
 *&---------------------------------------------------------------------*
-*&
-*&---------------------------------------------------------------------*
 report z_invoice_items_euro.
 
 *&---------------------------------------------------------------------*
@@ -28,12 +26,25 @@ class lcl_main implementation.
 
   method create.
 
-    create object r_result.
+    R_RESULT = NEW #( ).
 
   endmethod.
 
   method run.
-    WRITE: 'Welcome, ', sy-uname, / 'Today is the', sy-datum.
+
+    data(invoices) = new ZCL_INVOICE_RETRIEVAL( ).
+
+    data(invoice_items) = invoices->get_items_from_db( ).
+
+    cl_salv_table=>factory(
+      importing
+        r_salv_table   = DATA(alv_table)
+      changing
+        t_table        = invoice_items
+    ).
+
+    alv_table->display( ).
+
   endmethod.
 
 endclass.
