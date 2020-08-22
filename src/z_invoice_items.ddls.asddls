@@ -9,6 +9,8 @@ define view Z_INVOICE_ITEMS as select from sepm_sddl_so_invoice_item {
     sepm_sddl_so_invoice_item.sales_order_invoice_key, 
     sepm_sddl_so_invoice_item.currency_code, 
     sepm_sddl_so_invoice_item.gross_amount,
+    
+    @EndUserText.quickInfo: 'Paid'
     case header.payment_status
         when 'P' then 'X'
         else ' '
