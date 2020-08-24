@@ -26,19 +26,19 @@ class lcl_main implementation.
 
   method create.
 
-    R_RESULT = NEW #( ).
+    r_result = new #( ).
 
   endmethod.
 
   method run.
 
-    data(invoices) = new ZCL_INVOICE_RETRIEVAL( ).
+    data(invoices) = new zcl_invoice_retrieval( ).
 
     data(invoice_items) = invoices->get_items_from_db( ).
 
     cl_salv_table=>factory(
       importing
-        r_salv_table   = DATA(alv_table)
+        r_salv_table   = data(alv_table)
       changing
         t_table        = invoice_items
     ).
